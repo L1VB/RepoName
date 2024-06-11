@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATM SONGS</title>
+    <link rel="stylesheet" href="SONGS.css">
+</head>
+
+<nav class="top">
+    <a href="FINAL.html"><h1>Foo Fighters</h1></a>
+    <ul class="top-menu">
+        <li><a href="BIO.html">Biography</a></li>
+        <li><span><a href="SONGS.html">Fan Page</a></span></li> 
+        <li><a href="OTHER-web.html">Other Webs</a></li>
+    </ul>
+</nav>
+
+<h3 class="yellow">Check out below our top tracks, concert photos and more!</h3>
+
+<div class="container">
+    <section class="first-half">
+        <iframe class="spotify-embed" src="https://open.spotify.com/embed/artist/7jy3rLJdDQY21OgRLCZ9sD?utm_source=generator" width="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="spotify-bodyText">
+            <h2>Top Tracks</h2>
+            <h3>Everlong</h3>
+            <p>The second single from 1997’s <span>The Colour and the Shape</span>. “Everlong” was penned by Dave Grohl during his split with his first wife, photographer Jennifer Youngblood.</p>
+            <p><i>"That song’s about a girl that I’d fallen in love with and it was basically about being connected to someone so much, that not only do you love them physically and spiritually, but when you sing along with them you harmonize perfectly." - Dave Grohl</i></p>
+            <h3>The Pretender</h3>
+            <p>“The Pretender” was a late addition to the Foo Fighters' sixth album, but once recorded soon started growing in importance, becoming the leading single off <span>Echoes, Silence, Patience & Grace</span> and a mainstay of the band’s concerts.</p>
+            <p><i>"That’s the thing with lyrics, you never want to give away specifics, because it’s nice for people to have their own idea or interpretation of the song. But, you know, everyone’s been fucked over before and I think a lot of people feel fucked over right now and they’re not getting what they were promised, and so something to do with that." - Foo Fighters</i></p>
+            <h3>Learn to Fly</h3>
+            <p>Musically, “Learn To Fly” is a little less loud than some of the band’s back catalog, and the chorus is more catchy than crazy. It was the <span>first Foo Fighters track to chart on Billboard’s Hot 100</span>, all the way to #19, and it was #1 overall on Billboard’s Hot Alternative Songs list.</p>
+            <p><i>"[“Learn to Fly” is] about the search for some sort of inspiration, the search for signs of life that will make you feel alive. It’s actually one of my least favourite songs on the record." - Dave Grohl</i></p>
+        </div>
+    </section>
+</div>
+
+<section class="MUSIC">
+    <div class="Album-1">
+        <h1>Your Photos</h1>
+        <p>
+            <div class="image-viewer">
+                <button id="prevImageButton">&lt;</button>
+                <img id="currentImage" src="Assig2/MyPhoto-4.jpeg" alt="Image Viewer">
+                <button id="nextImageButton">&gt;</button>
+            </div>
+        </p>
+    </div>    
+    <div class="Album-2">
+        <h1>Your Videos</h1>
+        <p>
+            <div class="video-viewer">
+                <button id="prevVideoButton">&lt;</button>
+                    <video id="currentVideo" class="spotify-video" controls>
+                        <source src="Assig2/Foo Fighters Official.mp4" type="video/mp4" alt="Foo Fighters Official Video">
+                        Your browser does not support the video tag.
+                    </video>
+                    <button id="nextVideoButton">&gt;</button>
+            </div> 
+        </p>  
+    </div>
+</section>
+
+<div class="container-button">
+    <h1>Which Unhinged Foo Fighter are You?</h1>
+    <button id="selectImageBtn"><h2>Click HERE to Find Out!</h2></button>
+    <div id="imageContainer"></div>
+</div>
+
+<div class="line"></div>
+
+<article class="Contact">
+    <h2>Contact Us</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+      
+      <label for="photo">Upload Photo:</label>
+      <input type="file" id="photo" name="photo" accept="image/*">
+      
+      <label for="video">Upload Video:</label>
+      <input type="file" id="video" name="video" accept="video/*">
+      
+      <button type="submit">Send</button>
+    </form>
+</article>
+
+<footer>
+    <a href="https://www.facebook.com/foofighters/about" target="_blank"><img src="img/SocialMedia-FaceBook.png" alt="Facebook"></a>
+    <a href="https://x.com/foofighters" target="_blank"><img src="img/SocialMedia-Twitter(X).png" alt="Twitter"></a>
+    <a href="https://www.instagram.com/foofighters/" target="_blank"><img src="img/SocialMedia-Instagram.png" alt="Instagram"></a>
+    <a href="https://www.youtube.com/channel/UCi2KNss4Yx73NG0JARSFe0A" target="_blank"><img src="img/SocialMedia-YouTube.png" alt="YouTube"></a>
+    <a href="https://www.tiktok.com/@foofightersofficial?lang=en" target="_blank"><img src="img/SocialMedia-TikTok.png" alt="Tik Tok"></a>
+</footer>
+
+<script src="SONGS.js"></script>
+</html>
