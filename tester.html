@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal Storm</title>
+    <style>
+        /* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+    top: 50px; /* Adjusted to be below the navbar */
+    right: 0;
+    background-color: #333;
+    z-index: 999;
+    width: 20em;
+    height: calc(100vh - 50px); /* Adjusted to fill the viewport height */
+}
+
+.menu.active {
+    display: block;
+}
+
+.menu li {
+    padding: 10px 15px;
+    text-align: right;
+    margin: 0; /* Removed margins to avoid overflow */
+    border-right: 0; /* Removed border-right to prevent visual issues */
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+}
+
+.hamburger-menu.active {
+    display: none; /* Hide the hamburger-menu when menu is active */
+}
+
+.line {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px;
+}
+
+/* News Articles */
+.News {
+    padding: 20px;
+    text-align: center; 
+}
+
+.Articles {
+    margin: 0 auto; 
+}
+
+.Article-item {
+    text-align: center;
+    width: 20em; 
+    padding: 10px;
+}
+
+.Article-item img {
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 10px;
+}
+
+a {
+    color: #f0ec12;
+}
+
+a:hover {
+    color: #931620;
+    text-decoration: underline;
+}
+
+h3 {
+    margin: 0; 
+}
+
+p {
+    margin: 5px 0; 
+}
+
+/* Dropdown functionality */
+.dropdown-content {
+    display: none;
+    overflow: hidden;
+}
+
+.dropdown-btn {
+    display: block; 
+    width: auto; 
+    text-align: center;
+    font-family: Times, serif;
+    background-color: #f0ec12;
+    color: #000;
+    padding: 10px;
+    margin: 10px auto; 
+    cursor: pointer; 
+    border: none; 
+    outline: none;
+}
+
+.dropdown-btn:hover {
+    background-color: #931620;
+    color: #fff; 
+}
+
+/* Content Container */
+.content-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: #1a1832;
+    align-items: start;
+}
+
+.info-box {
+    position: relative;
+    align-self: start;
+}
+
+.info-box h2 {
+    text-align: center;
+}
+
+.img-container h2 {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: white;
+    background-color: rgba(71, 185, 63, 0.5);
+    padding: 5px 10px;
+    margin: 0;
+    width: auto;
+    text-align: center;
+}
+
+.img-container {
+    position: relative;
+}
+
+.img-container img {
+    width: 100%;
+    height: auto;
+}
+
+.info-box .BodyText {
+    background-color: #ccd21a;
+    padding: 1rem;
+}
+
+.BodyText ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.BodyText li {
+    margin: 0.5rem 0;
+}
+
+.BodyText a {
+    text-decoration: none;
+    color: #333;
+}
+
+.BodyText a:hover {
+    text-decoration: underline;
+}
+
+/* Bio */
+.Bio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.Bio-Text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Bio img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Image Viewer */
+.image-viewer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.image-viewer {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-viewer img {
+    max-width: 600px;
+    max-height: 400px;
+    margin: 0 20px;
+}
+
+.image-viewer button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Albums */
+.Album-text p {
+    margin: 0;
+    margin-left: 2em;
+    color: #f0f0f0;
+}
+
+.Album-1 {
+    background-image: url(Assig2/FooFighters-Concert-4.jpeg);
+    background-size: cover;
+    background-position: center;
+    height: 25%;
+    padding: 5em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.Album-2 {
+    background-image: url(Assig2/FooFighters-Nashville.webp);
+    background-size: cover;
+    background-position: center;
+    height: 25%;
+    padding: 5em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.Album-3 {
+    background-image: url(Assig2/FooFighters-Concert.jpeg);
+    background-size: cover;
+    background-position: center;
+    height: 25%;
+    padding: 5em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+/* iframes */
+.video-embed {
+    border-radius: 12px;
+    width: 20em;
+}
+
+.spotify-embed {
+    border-radius: 12px;
+    width: 20em; 
+    padding: 10px;
+}
+
+/* Contact */
+.Contact {
+    padding: 20px;
+}
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</div>
+
+<section class="Contact">
+    <h2>Contact Us</h2>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+      
+      <button type="submit">Send</button>
+    </form>
+</section>
+
+<section class="MUSIC">
+    <div class="Album-1">
+        <div class="Album-iframe">
+            <video class="spotify-video" width="100%" height="352" controls>
+                <source src="Assig2/Foo Fighters Official.mp4" type="video/mp4" alt="Clip from Saturday Night Live">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="Album-text">
+            <p>@FooFightersOffical - Tik Tok</p>
+            <p>Rescued x @Saturday Night Live - SNL #ButHereWeAre #SNL</p>
+        </div>
+    </div>
+    <div class="Album-2">
+        <div class="Album-iframe">
+            <video class="spotify-video" width="100%" height="352" controls>
+                <source src="Assig2/Foo Fighters Official (1).mp4" type="video/mp4" alt="David Grohl singing 'Under You'">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="Album-text">
+            <p>@FooFightersOffical - Tik Tok</p>
+            <p><i>Under You</i> (From ‘Preparing Music For Concerts’) #ButHereWeAre #FooFighters</p>
+        </div>
+    </div>
+    <div class="Album-3">
+        <div class="Album-iframe">
+            <video class="spotify-video" width="100%" height="352" controls>
+                <source src="Assig2/Foo Fighters Official (1).mp4" type="video/mp4" alt="David Grohl singing 'Under You'">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="Album-text">
+            <p>@FooFightersOffical - Tik Tok</p>
+            <p><i>Under You</i> (From ‘Preparing Music For Concerts’) #ButHereWeAre #FooFighters</p>
+        </div>
+    </div>
+</section>
+
+<section class="Bio">
+    <h2>Popular RATM Songs and their Lyrics</h2>
+    <h3>They are all failiours</h3>
+    <div class="Bio-Text">
+        <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+        <h3>Songs Name</h3>
+        <a href="#lyrics" target="_blank">Links to web with lyrics??</a>
+        <p>LYRICS HERE</p>
+    </div>
+</section>
+
+
+<section class="News">
+    <h1>NEWS</h1>
+    <table class="Articles">
+        <tr>
+            <td class="Article-item">
+                <iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/0xQh3fJidjv53VpvR12Lqn?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <h3>Fan Favourites</h3>
+                <p>This is a public playlist on spotify which includes all the fans Favourite songs by Rage Against The Machine!</p>
+                <a href="#lyrics" target="_blank">Link to lyrics website</a>
+            </td>
+            <td class="Article-item">
+                <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                <h3>Song Name</h3>
+                <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                <p>LYRICS HERE</p>
+            </td>
+            <td class="Article-item">
+                <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                <h3>Song Name</h3>
+                <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                <p>LYRICS HERE</p>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <button class="dropdown-btn"><h2>Click HERE for more</h2></button>
+    <div class="dropdown-content">
+        <table class="Articles">
+            <tr>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+                <td class="Article-item">
+                    <img src="Assig2/RATM-albumCover.png" alt="Album Cover">
+                    <h3>Song Name</h3>
+                    <a href="#lyrics" target="_blank">Link to lyrics website</a>
+                    <p>LYRICS HERE</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+
+<div class="content-container">
+    <section class="info-box" id="latest-news">
+        <h2>Latest News</h2>
+        <div class="img-container">
+            <img src="Assig2/RATM.png" alt="RATM">
+            <h2>Rage Against the Machine</h2>
+        </div>
+        <div class="BodyText">
+            <ul>
+                <li><a href="#">News Item 1</a></li>
+                <li><a href="#">News Item 2</a></li>
+                <li><a href="#">News Item 3</a></li>
+                <li><a href="#">News Item 1</a></li>
+                <li><a href="#">News Item 2</a></li>
+                <li><a href="#">News Item 3</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <h2>Main Content</h2>
+        <div class="BodyText">
+            <p>Main content goes here...</p>
+        </div>
+    </section>
+
+</div>
+
+
+
+
+<footer>
+    <div class="image-viewer">
+        <button id="prevButton">&lt;</button>
+        <img id="currentImage" src="Assig2/RATM-concert.jpeg" alt="Image Viewer">
+        <button id="nextButton">&gt;</button>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+    var menu = document.querySelector('.menu');
+    var hamburgerMenu = document.querySelector('.hamburger-menu');
+    
+    // Toggle the 'active' class for the menu
+    menu.classList.toggle('active');
+    
+    // Toggle the 'active' class for the hamburger-menu
+    hamburgerMenu.classList.toggle('active');
+
+    // Add event listener to close menu when clicking outside of it
+    document.addEventListener('click', closeMenuOutside);
+}
+
+function closeMenuOutside(event) {
+    var menu = document.querySelector('.menu');
+    var hamburgerMenu = document.querySelector('.hamburger-menu');
+
+    // Check if the clicked element is not the menu or the hamburger-menu
+    if (!menu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+        menu.classList.remove('active');
+        hamburgerMenu.classList.remove('active');
+
+        // Remove event listener after closing the menu
+        document.removeEventListener('click', closeMenuOutside);
+    }
+}
+
+
+document.querySelectorAll('.dropdown-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const dropdownContent = button.nextElementSibling;
+        if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+            dropdownContent.style.display = "block";
+        } else {
+            dropdownContent.style.display = "none";
+        }
+    });
+});
+
+
+// moving shit 
+
+const images = [
+    'Assig2/RATM-concert.jpeg',
+    'Assig2/RATM.png',
+    'Assig2/RATM-member.jpeg',
+    'Assig2/Rage Against the Machine live.jpg',
+    'Assig2/RATM-2008.jpeg'
+];
+
+let currentIndex = 0;
+
+const currentImage = document.getElementById('currentImage');
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+
+prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+    currentImage.src = images[currentIndex];
+});
+
+nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+    currentImage.src = images[currentIndex];
+});
+
+// video pause before start 
+document.addEventListener("DOMContentLoaded", function() {
+    var videos = document.querySelectorAll('.spotify-video');
+
+    videos.forEach(function(video) {
+        video.addEventListener('click', function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+    });
+});
+
+// moving images - background
+document.addEventListener("DOMContentLoaded", function() {
+    var sections = document.querySelectorAll(".Album-1, .Album-2, .Album-3");
+
+    window.addEventListener("scroll", function() {
+        sections.forEach(function(section) {
+            var scrollPosition = window.scrollY;
+            var sectionOffset = section.offsetTop;
+            var backgroundPosition = (scrollPosition - sectionOffset) * 0.5; // Adjust the multiplier for desired effect
+
+            section.style.backgroundPosition = "center " + backgroundPosition + "px";
+        });
+    });
+});
+</script>
+
+</body>
+</html>
