@@ -2,7 +2,49 @@
 <html>
 <head>
     <title>Swirlie Wirls</title>
-    <link rel="stylesheet" href="ChenInspo.css">
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-image: url('Assig2/Artboard1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #dca1cf;
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+    background-color: #7de1e39d;
+    border-radius: 10px;
+}
+
+.text-overlay-2 {
+    background-color: #7de1e3c9;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+}
+    </style>
 </head>
 
 <div class="text-overlay">
@@ -17,5 +59,125 @@
 </body>
 
 
-<script src="ChenInspo.js"></script>
+<script>
+    const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let hoverRadius = 100;
+        let colors = ['#944BBB', '#0FFF95', '#275DAD', '#FFDA22', '#0090C1'];
+
+        function Particle(x, y, radius, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+            this.targetX = x;
+            this.targetY = y;
+            this.velocity = { x: 0, y: 0 };
+            this.friction = 0.9;
+            this.distanceFromCenter = Math.random() * (canvas.width / 4) + (canvas.width / 4);
+
+            this.update = () => {
+                const lastPoint = { x: this.x, y: this.y };
+
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance > 0) {
+                    const unitX = dx / distance;
+                    const unitY = dy / distance;
+
+                    this.velocity.x = (this.velocity.x * this.friction) + unitX;
+                    this.velocity.y = (this.velocity.y * this.friction) + unitY;
+                }
+
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                this.draw(lastPoint);
+
+            };
+
+            this.draw = (lastPoint) => {
+                ctx.beginPath();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = this.radius;
+                ctx.moveTo(lastPoint.x, lastPoint.y);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+                ctx.closePath();
+            };
+        }
+
+        let mouse = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+        };
+
+        canvas.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < 300; i++) {
+                const radius = Math.random() * 2 + 1;
+                const x = Math.random() * (canvas.width - radius * 2) + radius;
+                const y = Math.random() * (canvas.height - radius * 2) + radius;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, radius, color));
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = '#90909000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle) => {
+                const dx = particle.x - mouse.x;
+                const dy = particle.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < hoverRadius) {
+                    particle.targetX = mouse.x;
+                    particle.targetY = mouse.y;
+                } else {
+                    particle.targetX = particle.x;
+                    particle.targetY = particle.y;
+                }
+
+                particle.update();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+
+
+// Set the time limit in milliseconds for each website
+const timeLimits = [10000, 15000, 20000, 25000]; // 10s, 15s, 20s, 25s
+
+let currentIndex = 0;
+
+function redirectToNext() {
+    if (currentIndex < timeLimits.length) {
+        setTimeout(function() {
+            const nextUrl = `second_page_${currentIndex + 1}.html`;
+            window.location.href = nextUrl;
+        }, timeLimits[currentIndex]);
+    }
+    currentIndex++;
+}
+
+redirectToNext();
+</script>
 </html>
