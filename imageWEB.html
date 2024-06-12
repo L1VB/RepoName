@@ -4,7 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spoonful</title>
-    <link rel="stylesheet" href="imageWEB.css">
+    <style>
+        body {
+    font-family: 'Arial, sans-serif';
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+}
+
+header {
+    background: #ffddc1;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.hero {
+    margin-top: 50px;
+    padding: 50px;
+    background: #ffeeee;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: move 4s infinite;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.hero p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.product-showcase {
+    padding: 50px 20px;
+    background: #fff;
+}
+
+.products {
+    display: flex;
+    justify-content: space-around;
+}
+
+.product {
+    text-align: center;
+    width: 30%;
+    transition: transform 0.3s;
+    animation: move 4s infinite;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.about {
+    padding: 50px 20px;
+    background: #ffddc1;
+    text-align: center;
+    animation: move 4s infinite;
+}
+
+footer {
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.scroll-banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.scroll-text {
+    font-size: 1.2em;
+}
+
+/* Moving elements */
+@keyframes move {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+    </style>
 </head>
 <body>
     <header>
@@ -64,6 +176,21 @@
     <footer>
         <p>&copy; 2024 Spoonful. All rights reserved.</p>
     </footer>
-    <script src="imageWEB.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const scrollBanner = document.querySelector('.scroll-banner');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY) {
+            scrollBanner.style.top = '-50px'; // Hide banner on scroll down
+        } else {
+            scrollBanner.style.top = '0'; // Show banner on scroll up
+        }
+        lastScrollY = window.scrollY;
+    });
+});
+
+    </script>
 </body>
 </html>
