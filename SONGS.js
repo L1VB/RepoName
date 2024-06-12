@@ -86,7 +86,7 @@ document.getElementById('selectImageBtn').addEventListener('click', function() {
         "Assig2/FF-funny-photo-2.jpeg",
         "Assig2/FF-funny-photos-3.jpeg",
         "Assig2/FF-funny-photo-4.jpeg",
-        "Assig2/FF-funny-photos-5.jpeg.webp"
+        "Assig2/FF-funny-photos-5.ipeg.webp"
     ];
 
     // Randomly select an image
