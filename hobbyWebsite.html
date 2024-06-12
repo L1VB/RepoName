@@ -4,7 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ManEater</title>
-  <link rel="stylesheet" href="hobbyWebsite.css">
+  <style>
+    body {
+    background-image: url('Assig2/fork.png');
+    background-size: cover;
+}
+
+body {
+    color: white;
+}
+
+.eye {
+    width: 100px; /* Eye size */
+    height: 100px; /* Eye size */
+    background: radial-gradient(#d04289, transparent);
+    box-shadow: 0 0 20px #000000bf; /* Add shadow for a creepy effect */
+    border-radius: 50%;
+    position: sticky;
+}
+  
+.left-eye {
+    float: left;
+    margin-top: -10px;
+}
+  
+.right-eye {
+    float: right;
+    margin-top: -10px;
+}
+  
+.pupil {
+    width: 20px; /* Pupil size */
+    height: 20px; /* Pupil size */
+    background-color: #000000; /* Black pupil color */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.eyeBody {
+    overflow: hidden;
+    margin: 0;
+}
+
+
+img {
+    position: absolute;
+    width: 200px;
+
+}
+  </style>
 </head>
 
 <div class="eye-body">
@@ -18,7 +69,76 @@
 
 <img id="muffin" src="Assig2/muffin-small.png" alt="Muffin">
 
-<script src="hobbyWebsite.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const leftEye = document.getElementById('leftEye');
+    const rightEye = document.getElementById('rightEye');
+    const pupils = document.querySelectorAll('.pupil');
+    const muffin = document.getElementById('muffin');
+    const muffinWidth = 50; // Assuming the muffin's width is 50px
+    const muffinHeight = 50; // Assuming the muffin's height is 50px
+  
+    let muffinX = Math.random() * (window.innerWidth - muffinWidth);
+    let muffinY = Math.random() * (window.innerHeight - muffinHeight);
+    let velocityX = Math.random() * 8 - 4;
+    let velocityY = Math.random() * 8 - 4;
+  
+    function updateMuffinPosition() {
+      muffinX += velocityX;
+      muffinY += velocityY;
+  
+      // Check for collisions with window boundaries
+      if (muffinX < 0) {
+        muffinX = 0;
+        velocityX = -velocityX * 0.9; // Reduce velocity after collision
+        muffinY += Math.random() * 50 - 25; // Introduce a random vertical offset
+      } else if (muffinX > window.innerWidth - muffinWidth) {
+        muffinX = window.innerWidth - muffinWidth;
+        velocityX = -velocityX * 0.9; // Reduce velocity after collision
+        muffinY += Math.random() * 50 - 25; // Introduce a random vertical offset
+      }
+  
+      if (muffinY < 0) {
+        muffinY = 0;
+        velocityY = -velocityY * 0.9; // Reduce velocity after collision
+        muffinX += Math.random() * 50 - 25; // Introduce a random horizontal offset
+      } else if (muffinY > window.innerHeight - muffinHeight) {
+        muffinY = window.innerHeight - muffinHeight;
+        velocityY = -velocityY * 0.9; // Reduce velocity after collision
+        muffinX += Math.random() * 50 - 25; // Introduce a random horizontal offset
+      }
+  
+      muffin.style.left = `${muffinX}px`;
+      muffin.style.top = `${muffinY}px`;
+  
+      updateEyePosition();
+  
+      requestAnimationFrame(updateMuffinPosition);
+    }
+  
+    function updateEyePosition() {
+      [leftEye, rightEye].forEach((eye, index) => {
+        const { left, top, width, height } = eye.getBoundingClientRect();
+        const eyeCenterX = left + width / 2;
+        const eyeCenterY = top + height / 2;
+        const deltaX = muffinX + muffinWidth / 2 - eyeCenterX;
+        const deltaY = muffinY + muffinHeight / 2 - eyeCenterY;
+        const angle = Math.atan2(deltaY, deltaX);
+        const radius = Math.min(width, height) / 3; // Increase eye movement sensitivity
+        const pupilX = Math.cos(angle) * radius;
+        const pupilY = Math.sin(angle) * radius;
+        pupils[index].style.transform = `translate(-50%, -50%) translate(${pupilX}px, ${pupilY}px)`;
+      });
+    }
+  
+    updateMuffinPosition();
+  
+    document.addEventListener('mousemove', updateEyePosition);
+  });
+
+
+
+</script>
 
 
 </html>
